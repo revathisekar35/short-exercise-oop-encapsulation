@@ -4,49 +4,60 @@ import java.text.MessageFormat;
 
 public class WeatherReporter {
 
-    public String location;
-    public double temperature;
+	private String location;
+	private double temperature;
+	private final float TEMPFORMULAVAR1 = 9f;
+	private final float TEMPFORMULAVAR2 = 5f;
+	private final int TEMPFORMULAVAR3 = 32;
+	private final String LONDON = "London";
+	private final String CALIFORNIA = "California";
+	private final String CAPE_TOWN = "Cape Town";
+	private final int TEMP30 = 30;
+	private final int TEMP10 = 10;
 
-    public WeatherReporter(String location, double temperature) {
-        this.location = location;
-        this.temperature = temperature;
-    }
+	public WeatherReporter(String location, double temperature) {
+		this.location = location;
+		this.temperature = temperature;
+	}
 
-    public String print() {
+	public String print() {
+		return MessageFormat.format("I am in {0} and it is {1}. {2}. The temperature in Fahrenheit is {3}.", location,
+				findLocation(), findTemperature(), calculateTemperature());
+	}
 
-        double newTemp = (9.0 / 5.0) * temperature + 32;
-        return MessageFormat.format("I am in {0} and it is {1}. {2}. The temperature in Fahrenheit is {3}.", location, check1(), check2(), newTemp);
+	private double calculateTemperature() {
+		return ((TEMPFORMULAVAR1 / TEMPFORMULAVAR2) * temperature + TEMPFORMULAVAR3);
 
-    }
+	}
 
-    public String check1() {
-        if (location == "London") {
+	private String findLocation() {
+		if (location == LONDON) {
 
-            return "🌦";
+			return "🌦";
 
-        } else if (location == "California") {
+		} else if (location == CALIFORNIA) {
 
-            return "🌅";
+			return "🌅";
 
-        } else if (location == "Cape Town") {
+		} else if (location == CAPE_TOWN) {
 
-            return "🌤";
+			return "🌤";
 
-        }
-        return "🔆";
-    }
+		}
+		return "🔆";
+	}
 
-    public String check2() {
-        if (temperature > 30) {
+	private String findTemperature() {
+		if (temperature > TEMP30) {
 
-            return "It's too hot 🥵!";
+			return "It's too hot 🥵!";
 
-        } else if (temperature < 10) {
+		} else if (temperature < TEMP10) {
 
-            return "It's too cold 🥶!";
+			return "It's too cold 🥶!";
 
-        }
-        return "Ahhh...it's just right 😊!";
-    }
+		}
+		return "Ahhh...it's just right 😊!";
+	}
 
 }
