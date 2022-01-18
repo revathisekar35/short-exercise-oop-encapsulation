@@ -2,18 +2,40 @@ package com.techreturners.encapsulation.bankaccount.model;
 
 import java.text.MessageFormat;
 
+enum TemperatureVal {
+	TEMPFORMULAVAR1(9f), TEMPFORMULAVAR2(5f), TEMPFORMULAVAR3(32);
+
+	float value;
+
+	private TemperatureVal(float value) {
+		this.value = value;
+	}
+}
+
+enum Location {
+	LONDON("London"), CALIFORNIA("California"), CAPETOWN("Cape Town");
+
+	String name;
+
+	private Location(String name) {
+		this.name = name;
+	}
+}
+
+enum Temperature {
+	HOT_THRESHOLD(30), COLD_THRESHOLD(10);
+
+	int temp;
+
+	private Temperature(int temp) {
+		this.temp = temp;
+	}
+}
+
 public class WeatherReporter {
 
 	private String location;
 	private double temperature;
-	private final float TEMPFORMULAVAR1 = 9f;
-	private final float TEMPFORMULAVAR2 = 5f;
-	private final int TEMPFORMULAVAR3 = 32;
-	private final String LONDON = "London";
-	private final String CALIFORNIA = "California";
-	private final String CAPE_TOWN = "Cape Town";
-	private final int TEMP30 = 30;
-	private final int TEMP10 = 10;
 
 	public WeatherReporter(String location, double temperature) {
 		this.location = location;
@@ -26,20 +48,21 @@ public class WeatherReporter {
 	}
 
 	private double calculateTemperature() {
-		return ((TEMPFORMULAVAR1 / TEMPFORMULAVAR2) * temperature + TEMPFORMULAVAR3);
+		return ((TemperatureVal.TEMPFORMULAVAR1.value / TemperatureVal.TEMPFORMULAVAR2.value) * temperature
+				+ TemperatureVal.TEMPFORMULAVAR3.value);
 
 	}
 
 	private String findLocation() {
-		if (location == LONDON) {
+		if (location == Location.LONDON.name) {
 
 			return "🌦";
 
-		} else if (location == CALIFORNIA) {
+		} else if (location == Location.CALIFORNIA.name) {
 
 			return "🌅";
 
-		} else if (location == CAPE_TOWN) {
+		} else if (location == Location.CAPETOWN.name) {
 
 			return "🌤";
 
@@ -48,11 +71,11 @@ public class WeatherReporter {
 	}
 
 	private String findTemperature() {
-		if (temperature > TEMP30) {
+		if (temperature > Temperature.HOT_THRESHOLD.temp) {
 
 			return "It's too hot 🥵!";
 
-		} else if (temperature < TEMP10) {
+		} else if (temperature < Temperature.COLD_THRESHOLD.temp) {
 
 			return "It's too cold 🥶!";
 
